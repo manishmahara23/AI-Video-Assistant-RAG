@@ -19,7 +19,7 @@ Thumbs.db
 vector_db/
 
 # Downloaded audio files
-downloades/
+downloads/
 
 # Streamlit cache (optional)
 .streamlit/secrets.toml
