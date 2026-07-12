@@ -36,7 +36,7 @@ def download_youtube_audio(url: str) -> str:
     cookie_file = _create_cookie_file()
 
     ydl_opts = {
-        "format": "bestaudio/best",
+        "format": "bestaudio/bestaudio*/best",
         "outtmpl": output_path,
         "quiet": True,
         "no_warnings": True,
