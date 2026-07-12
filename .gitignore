@@ -23,3 +23,6 @@ downloads/
 
 # Streamlit cache (optional)
 .streamlit/secrets.toml
+
+##
+www.youtube.com_cookies.txt
