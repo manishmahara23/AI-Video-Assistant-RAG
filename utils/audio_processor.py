@@ -36,21 +36,30 @@ def download_youtube_audio(url: str) -> str:
     cookie_file = _create_cookie_file()
 
     ydl_opts = {
-        "format": "bestaudio[ext=m4a]/bestaudio/best",
+        "format": "bestaudio/best",
         "outtmpl": output_path,
         "quiet": True,
         "no_warnings": True,
         "noplaylist": True,
         "ignoreerrors": False,
+
         "retries": 10,
         "fragment_retries": 10,
         "extractor_retries": 10,
-        "concurrent_fragment_downloads": 4,
-        "extractor_args": {
-            "youtube": {
-                "player_client": ["android", "web"]
-            }
+
+        "geo_bypass": True,
+        "geo_bypass_country": "IN",
+
+        "source_address": "0.0.0.0",
+
+        "http_headers": {
+            "User-Agent": (
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/138.0.0.0 Safari/537.36"
+            )
         },
+
         "postprocessors": [
             {
                 "key": "FFmpegExtractAudio",
@@ -66,7 +75,6 @@ def download_youtube_audio(url: str) -> str:
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=True)
-
             downloaded_file = ydl.prepare_filename(info)
 
     finally:
@@ -82,12 +90,7 @@ def convert_to_wav(input_path: str) -> str:
     output_path = os.path.splitext(input_path)[0] + "_converted.wav"
 
     audio = AudioSegment.from_file(input_path)
-
-    audio = (
-        audio
-        .set_channels(1)
-        .set_frame_rate(16000)
-    )
+    audio = audio.set_channels(1).set_frame_rate(16000)
 
     audio.export(output_path, format="wav")
 
