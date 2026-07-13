@@ -20,6 +20,7 @@ vector_db/
 
 # Downloaded audio files
 downloads/
+downloades/
 
 # Streamlit cache (optional)
 .streamlit/secrets.toml
