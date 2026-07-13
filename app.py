@@ -6,7 +6,8 @@ from core.transcriber import transcribe_all
 from core.summarizer import summarize, generate_title
 from core.extractor import extract_action_items, extract_key_decisions, extract_questions
 from core.rag_engine import build_rag_chain, ask_question
-
+import tempfile
+import os
 load_dotenv()
 
 # ─── Page Config ────────────────────────────────────────────────────────────────
@@ -486,6 +487,23 @@ with st.sidebar:
         "URL / PATH",
         placeholder="youtube.com/watch?v=... or /file.mp4"
     )
+    uploaded_file = st.file_uploader(
+    "OR Upload Audio / Video",
+    type=["mp3", "wav", "mp4", "m4a", "mov", "webm"]
+)
+
+if uploaded_file is not None:
+    suffix = os.path.splitext(uploaded_file.name)[1]
+
+    temp_file = tempfile.NamedTemporaryFile(
+        delete=False,
+        suffix=suffix
+    )
+
+    temp_file.write(uploaded_file.read())
+    temp_file.close()
+
+    source = temp_file.name
 
     st.markdown('<div style="height:0.5rem"></div>', unsafe_allow_html=True)
     language = st.selectbox("Language", ["english", "hinglish"], index=0)
