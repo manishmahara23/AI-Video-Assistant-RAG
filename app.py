@@ -210,6 +210,58 @@ h1, h2, h3 {
     transition: background-color 5000s ease-in-out 0s;
 }
 
+/* ── File Uploader — match paper theme, compact size ── */
+[data-testid="stFileUploader"] {
+    background: transparent !important;
+}
+[data-testid="stFileUploaderDropzone"] {
+    background: var(--paper) !important;
+    background-color: var(--paper) !important;
+    border: 1.5px dashed var(--rule) !important;
+    border-radius: 0 !important;
+    padding: 0.6rem 0.75rem !important;
+    min-height: unset !important;
+}
+[data-testid="stFileUploaderDropzone"]:hover {
+    border-color: var(--ink) !important;
+}
+[data-testid="stFileUploaderDropzoneInstructions"] {
+    color: var(--ink) !important;
+}
+[data-testid="stFileUploaderDropzoneInstructions"] span,
+[data-testid="stFileUploaderDropzoneInstructions"] small,
+[data-testid="stFileUploaderDropzoneInstructions"] div {
+    color: var(--ink-2) !important;
+    font-family: var(--mono) !important;
+    font-size: 0.68rem !important;
+}
+[data-testid="stFileUploaderDropzoneInstructions"] svg {
+    fill: var(--ink-3) !important;
+}
+[data-testid="stFileUploaderDropzone"] button,
+[data-testid="stBaseButton-secondary"] {
+    background: var(--paper) !important;
+    color: var(--ink) !important;
+    border: 1px solid var(--ink) !important;
+    border-radius: 0 !important;
+    font-family: var(--mono) !important;
+    font-size: 0.68rem !important;
+    padding: 0.25rem 0.6rem !important;
+}
+[data-testid="stFileUploaderDropzone"] button:hover {
+    background: var(--ink) !important;
+    color: var(--paper) !important;
+}
+[data-testid="stFileUploaderFile"] {
+    background: var(--paper) !important;
+    color: var(--ink) !important;
+    font-family: var(--mono) !important;
+    font-size: 0.7rem !important;
+}
+[data-testid="stFileUploaderFileName"] {
+    color: var(--ink) !important;
+}
+
 /* Selectbox — same treatment */
 .stSelectbox > div > div {
     background: var(--paper) !important;
