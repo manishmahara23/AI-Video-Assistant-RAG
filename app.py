@@ -6,8 +6,7 @@ from core.transcriber import transcribe_all
 from core.summarizer import summarize, generate_title
 from core.extractor import extract_action_items, extract_key_decisions, extract_questions
 from core.rag_engine import build_rag_chain, ask_question
-import tempfile
-import os
+
 load_dotenv()
 
 # ─── Page Config ────────────────────────────────────────────────────────────────
@@ -487,23 +486,23 @@ with st.sidebar:
         "URL / PATH",
         placeholder="youtube.com/watch?v=... or /file.mp4"
     )
+
+    st.markdown('<div style="font-family:\'IBM Plex Mono\',monospace;font-size:0.65rem;color:#888880;text-align:center;margin:0.5rem 0;letter-spacing:0.1em;text-transform:uppercase">— or —</div>', unsafe_allow_html=True)
+
     uploaded_file = st.file_uploader(
-    "OR Upload Audio / Video",
-    type=["mp3", "wav", "mp4", "m4a", "mov", "webm"]
-)
-
-if uploaded_file is not None:
-    suffix = os.path.splitext(uploaded_file.name)[1]
-
-    temp_file = tempfile.NamedTemporaryFile(
-        delete=False,
-        suffix=suffix
+        "Upload Audio / Video",
+        type=["mp3", "wav", "mp4", "m4a", "mov", "webm", "mkv"],
+        label_visibility="collapsed"
     )
 
-    temp_file.write(uploaded_file.read())
-    temp_file.close()
-
-    source = temp_file.name
+    if uploaded_file is not None:
+        import tempfile, os as _os
+        suffix = _os.path.splitext(uploaded_file.name)[1]
+        _tmp = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
+        _tmp.write(uploaded_file.read())
+        _tmp.close()
+        source = _tmp.name
+        st.markdown(f'<div style="font-family:\'IBM Plex Mono\',monospace;font-size:0.65rem;color:#0D0D0D;margin-top:0.25rem">✓ {uploaded_file.name}</div>', unsafe_allow_html=True)
 
     st.markdown('<div style="height:0.5rem"></div>', unsafe_allow_html=True)
     language = st.selectbox("Language", ["english", "hinglish"], index=0)
